@@ -125,6 +125,7 @@ class HBNBCommand(cmd.Cmd):
             return
         dictionary = string_to_dict(args)
         new_instance = HBNBCommand.classes[class_name](**dictionary)
+        print(new_instance.id)
         storage.new(new_instance)
         storage.save()
 
