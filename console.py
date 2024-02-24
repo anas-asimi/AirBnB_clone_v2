@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from utils.string_to_dict import string_to_dict
 
 
 class HBNBCommand(cmd.Cmd):
@@ -73,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is '}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -113,17 +114,18 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
+    def do_create(self, args: str):
         """ Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        class_name = args.split(" ")[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
-        print(new_instance.id)
+        dictionary = string_to_dict(args)
+        new_instance = HBNBCommand.classes[class_name](**dictionary)
+        storage.new(new_instance)
         storage.save()
 
     def help_create(self):
@@ -272,7 +274,7 @@ class HBNBCommand(cmd.Cmd):
                 args.append(v)
         else:  # isolate args
             args = args[2]
-            if args and args[0] is '\"':  # check for quoted arg
+            if args and args[0] == '\"':  # check for quoted arg
                 second_quote = args.find('\"', 1)
                 att_name = args[1:second_quote]
                 args = args[second_quote + 1:]
@@ -280,10 +282,10 @@ class HBNBCommand(cmd.Cmd):
             args = args.partition(' ')
 
             # if att_name was not quoted arg
-            if not att_name and args[0] is not ' ':
+            if not att_name and args[0] != ' ':
                 att_name = args[0]
             # check for quoted val arg
-            if args[2] and args[2][0] is '\"':
+            if args[2] and args[2][0] == '\"':
                 att_val = args[2][1:args[2].find('\"', 1)]
 
             # if att_val was not quoted arg
