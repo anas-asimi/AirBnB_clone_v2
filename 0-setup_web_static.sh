@@ -2,7 +2,7 @@
 # Prepare my webservers (web-01 & web-02)
 
 # uncomment for easy debugging
-set -x
+# set -x
 
 # colors
 blue='\e[1;34m'
@@ -34,9 +34,9 @@ sudo chown -R ubuntu:ubuntu /data/
 # backup default server config file
 sudo cp /etc/nginx/sites-enabled/default nginx-sites-enabled_default.backup
 
-# Set-up the content of /data/web_static/current/ to redirect
-# to domain.tech/hbnb_static
-sudo sed -i '37i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+# Set-up domain.tech/hbnb_static to redirect
+# to the content of /data/web_static/current
+sudo sed -i '40i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 
 # restart Nginx after updating the configuration
 sudo service nginx stop
