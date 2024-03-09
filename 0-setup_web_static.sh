@@ -36,7 +36,7 @@ sudo cp /etc/nginx/sites-enabled/default nginx-sites-enabled_default.backup
 
 # Set-up domain.tech/hbnb_static to redirect
 # to the content of /data/web_static/current
-sudo sed -i '40i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+sudo sed -i '44i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tindex index.html index.htm;\n\t}\n' /etc/nginx/sites-available/default
 
 # restart Nginx after updating the configuration
 sudo service nginx stop
