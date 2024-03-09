@@ -24,7 +24,7 @@ echo -e "\n${blue}Setting up some minor stuff.${reset}\n"
 sudo mkdir -p /data/web_static/releases/test /data/web_static/shared/
 
 # create index.html for test directory
-echo "<h1>Welcome to th3gr00t.tech <\h1>" | sudo dd status=none of=/data/web_static/releases/test/index.html
+echo "<h1>Welcome<\h1>" | sudo dd status=none of=/data/web_static/releases/test/index.html
 
 # create symbolic link
 sudo ln -sf /data/web_static/releases/test /data/web_static/current
@@ -42,3 +42,4 @@ sudo sed -i '37i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/
 sudo service nginx restart
 
 echo -e "${green}Completed${reset}"
+exit 0
