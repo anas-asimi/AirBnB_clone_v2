@@ -2,3 +2,4 @@ __pycache__
 file.json
 bash_script
 .venv
+.python-version
