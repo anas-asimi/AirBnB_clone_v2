@@ -33,7 +33,7 @@ def python(text: str = 'is cool'):
 
 
 @app.route('/number/<n>', strict_slashes=False)
-def number(n: str = 'is cool'):
+def number(n: str):
     """returns n is a number"""
     try:
         return '{} is a number'.format(int(n))
