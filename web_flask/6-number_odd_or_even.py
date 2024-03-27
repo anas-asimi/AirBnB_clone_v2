@@ -58,7 +58,8 @@ def number_odd_or_even(n: str):
             evenness = 'even'
         else:
             evenness = 'odd'
-        return render_template('6-number_odd_or_even.html', n=int(n), evenness=evenness)
+        return render_template('6-number_odd_or_even.html',
+                               n=int(n), evenness=evenness)
     except ValueError:
         abort(404)
 
